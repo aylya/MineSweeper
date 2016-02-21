@@ -44,7 +44,7 @@
                         bombing = false;
                     }
 
-                    Console.WriteLine("Initial board:");
+                  
                 }
 
             }
@@ -52,8 +52,10 @@
             if (bombs.Count == 0)
             {
                 SetRandomBombs(boardsize, matrix);
-                Console.WriteLine("Initial board, bombs are randomly placed:");
+                Console.WriteLine("\n Initial board, bombs are randomly placed:");
             }
+            else
+                Console.WriteLine("\n Initial board:");
 
             InitMatrix(matrix);
             PrintMatrix(matrix);

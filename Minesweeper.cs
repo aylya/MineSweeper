@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     class Minesweeper
     {
 
-        static string BOMB = "*";
+        const string BOMB = "*";
         static List<Tuple<int, int>> bombs = new List<Tuple<int, int>>();
 
         static void Main()
@@ -25,7 +24,6 @@ namespace Minesweeper
             {
                 while (bombing)
                 {
-
                     Console.Write("Cell value row, column:");
 
                     string bombsValue = Console.ReadLine();
@@ -40,9 +38,9 @@ namespace Minesweeper
 
                     Console.WriteLine("Press S to exit inserting bombs, otherwise any key to continue...");
                     userInput = Console.ReadKey();
-                    
-                    if (userInput.Key == ConsoleKey.S)                    {
 
+                    if (userInput.Key == ConsoleKey.S)
+                    {
                         bombing = false;
                     }
 
@@ -53,7 +51,6 @@ namespace Minesweeper
 
             if (bombs.Count == 0)
             {
-
                 SetRandomBombs(boardsize, matrix);
                 Console.WriteLine("Initial board, bombs are randomly placed:");
             }
@@ -87,36 +84,14 @@ namespace Minesweeper
             }
         }
 
-        static void ParseUserInput(string userInput, out int row, out int col)
-        {
-            row = -1;
-            col = -1;
-
-            var input = userInput.Split(',');
-            if (input.Length != 2)
-            {
-                Console.WriteLine("Wrong row,column value.");
-
-            }
-            else
-            {
-
-                if (!Int32.TryParse(input[0], out row))
-                    Console.WriteLine("Wrong values for row. Row value must be int.");
-
-                if (!Int32.TryParse(input[1], out col))
-                    Console.WriteLine("Wrong values for column. Column value must be int.");
-
-            }
-        }
-
+        #region InitMatrix
         /// <summary>
         /// Init matrix,board values. 
         /// </summary>
         /// <param name="matrix">Board, matrix to be initialised</param>
         static void InitMatrix(string[,] matrix)
         {
-            
+
             for (int row = 0; row < matrix.GetLength(0); row++)
             {
                 for (int col = 0; col < matrix.GetLength(1); col++)
@@ -143,7 +118,9 @@ namespace Minesweeper
                 }
             }
         }
+        #endregion
 
+        #region PrintMatrix
         /// <summary>
         /// Show matrix values
         /// </summary>
@@ -161,7 +138,9 @@ namespace Minesweeper
             }
             Console.WriteLine();
         }
+        #endregion
 
+        #region Calculate board values
         /// <summary>
         /// Check if given cell is BOMB or not.
         /// </summary>
@@ -178,7 +157,6 @@ namespace Minesweeper
             else
                 return 0;
         }
-
         /// <summary>
         /// Calulates bomb count arround each cell
         /// </summary>
@@ -220,7 +198,9 @@ namespace Minesweeper
                 }
             }
         }
+        #endregion
 
+        #region Check Range
         /// <summary>
         /// Check if given row and column values is inside the board, matrix.
         /// </summary>
@@ -259,7 +239,9 @@ namespace Minesweeper
 
             return isColInRange;
         }
+        #endregion
 
+        #region RetrieveCellValue
         /// <summary>
         /// Retrieve value for a given cell.
         /// </summary>
@@ -288,6 +270,10 @@ namespace Minesweeper
                 Console.WriteLine("Value for the cell {0}, {1} is: {2}", row, col, matrix[row, col]);
             }
         }
+        #endregion
+
+        #region SetRandomBombs
+
         /// <summary>
         /// Place random bombs if they are not placed. Number of bombs = boardSize. Can be changed.
         /// </summary>
@@ -309,6 +295,38 @@ namespace Minesweeper
                 bombCount++;
             }
         }
+        #endregion
+
+        #region ParseUserInput
+        /// <summary>
+        /// Parse console input
+        /// </summary>
+        /// <param name="userInput">console input</param>
+        /// <param name="row">Row to be checked.</param>
+        /// <param name="col">Col to be checked</param>
+        static void ParseUserInput(string userInput, out int row, out int col)
+        {
+            row = -1;
+            col = -1;
+
+            var input = userInput.Split(',');
+            if (input.Length != 2)
+            {
+                Console.WriteLine("Wrong row,column value.");
+
+            }
+            else
+            {
+
+                if (!Int32.TryParse(input[0], out row))
+                    Console.WriteLine("Wrong values for row. Row value must be int.");
+
+                if (!Int32.TryParse(input[1], out col))
+                    Console.WriteLine("Wrong values for column. Column value must be int.");
+
+            }
+        }
+        #endregion
 
     }
 }
